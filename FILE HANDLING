@@ -1,0 +1,65 @@
+import os
+
+doc_path = os.path.expanduser("~/Documents")
+
+if not os.path.exists(doc_path):
+    os.makedirs(doc_path) 
+
+with open("student_no.txt", "w") as s:
+    pass
+
+while True: 
+    print("\n==== Student Records Menu ====")
+    print("1. Register Student")
+    print("2. Open Student Record")
+    print("3. Exit")
+    try:
+        choice = int(input("Enter your choice: "))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        continue
+    
+    if choice == 1:
+        print("\n=== Register Student ===")
+        stud_num = input("Student No.: ")
+        last_name = input("Last Name: ")
+        first_name = input("First Name: ")
+        mid_init = input("Middle Initial: ")
+        prog = input("Program: ")
+        age = input("Age: ")
+        gender = input("Gender: ")
+        birthday = input("Birthday: ")
+        contact_num = input("Contact No.: ")
+        
+        file_name = f"{stud_num}.txt" 
+        file_path = os.path.join(doc_path, file_name) 
+        with open(file_path, "w") as sr: 
+            sr.write(f"Student No.: {stud_num}\n")
+            sr.write(f"Last Name: {last_name}\n")
+            sr.write(f"First Name: {first_name}\n")
+            sr.write(f"Middle Initial: {mid_init}\n")
+            sr.write(f"Program: {prog}\n")
+            sr.write(f"Age: {age}\n")
+            sr.write(f"Gender: {gender}\n")
+            sr.write(f"Birthday: {birthday}\n")
+            sr.write(f"Contact No.: {contact_num}\n")
+
+        print(f"\nStudent record saved to: {file_path}\n") 
+        
+    elif choice == 2:
+        print("\n=== Open Student Record ===")
+        stud_num = input("Enter your student no.: ")
+        file_name = f"{stud_num}.txt"  
+        file_path = os.path.join(doc_path, file_name) 
+        
+        try:
+            with open(file_path, "r") as srt:
+                print("\n" + srt.read()) 
+        except FileNotFoundError:
+            print("Student record not found.\n")
+        
+    elif choice == 3:
+        print("Goodbye!")
+        break  
+    else:
+        print("Invalid choice. Please try again.")
